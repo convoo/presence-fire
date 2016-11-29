@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+    <title>presence-fire demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../presence-fire.html">
+    <style is="custom-style" include="demo-pages-shared-styles">
+    </style>
+</head>
+<body>
+    <div class="vertical-section-container centered">
+    <h3>Basic presence-fire demo</h3>
+    <demo-snippet>
+        <template>
+
+        <presence-fire
+            app-name="convoo"
+            uid="[[user.uid]]" 
+            name="[[user.name]]" 
+            photo="[[user.photoURL]]"
+            placeholder="[[user.placeholder]]" 
+            route="[[route]]"
+            status={{status}}
+            present={{present}}>
+        </presence-fire>
+
+        </template>
+    </demo-snippet>
+    </div>
+</body>
+</html>

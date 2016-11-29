@@ -1,0 +1,129 @@
+<link rel="import" href="../polymer/polymer.html">
+
+
+<!--
+`presence-fire`
+An element that saves the presence of the user at a route and gets all other users at that route
+
+@demo demo/index.html 
+-->
+
+<dom-module id="presence-fire">
+<template>
+    <style>
+    :host {
+        display: block;
+    }
+    </style>
+
+    <firebase-document 
+        app-name="convoo"
+        id="presence"
+        path="/presence/{{uid}}">
+    </firebase-document>
+
+</template>
+
+<script>
+    /**
+    * `presence-fire`
+    * An element that saves the presence of the user at a route and gets all other users at that route
+    * Example:
+    * ```
+    * <presence-fire
+    *    app-name="yourAppName"
+    *    uid="[[user.uid]]" 
+    *    name="[[user.name]]" 
+    *    image="[[user.imageURL]]" 
+    *    placeholder="[[user.placeholder]]" 
+    *    route="[[route]]"
+    *    status={{status}}
+    *    present={{present}}>
+    * </presence-fire>
+    * ```
+    *
+    *
+    * @demo demo/presence-fire.html
+    */
+    Polymer({
+
+    is: 'presence-fire',
+
+    properties: {
+        /**
+        * `appName` is the firebase app name
+        */
+        appName: {
+            type: String,
+        },
+        /**
+        * `uid` is the users id
+        */
+        uid: {
+            type: String,
+        },
+        /**
+        * `name` is the users photo
+        */
+        name: {
+            type: String,
+            observer: '_updateFirebase'
+        },
+        /**
+        * `photo` is the users photo
+        */
+        photo: {
+            type: String,
+            observer: '_updateFirebase'
+        },
+        /**
+        * `route` is the route the curent user is at 
+        */
+        placeholder: {
+            type: String,
+            observer: '_updateFirebase'
+        },
+        /**
+        * `route` is the route the curent user is at 
+        */
+        route: {
+            type: Object,
+            observer: '_updateFirebase'
+        },
+        /**
+        * `status` displays the users status
+        */
+        status: {
+            type: String,
+            reflectToAttribute: true,
+            notify: true
+        },
+        /**
+        * `present` is an object containing all the other users who at the curent route
+        */
+        present: {
+            type: Object,
+            reflectToAttribute: true,
+            notify: true
+        },
+    },
+        attached: function(){
+            this._updateFirebase();
+        },
+
+        _updateFirebase: function(){
+            if(this.$.presence.ref && this.route.path && this.placeholder && this.photo && this.name){
+                this.$.presence.ref.onDisconnect().remove();
+                this.$.presence.ref.set({
+                    route: this.route.path,
+                    uid: this.uid,
+                    placeholder: this.placeholder,
+                    photo: this.photo,
+                    name: this.name,
+                });
+            } 
+        },
+
+    });
+</script>
+</dom-module>
