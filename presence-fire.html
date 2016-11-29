@@ -74,21 +74,21 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `name` is the users photo
+        * `name` is the users name (optional)
         */
         name: {
             type: String,
             observer: '_updateFirebase'
         },
         /**
-        * `photo` is the users photo
+        * `photo` is the users photo (optional)
         */
         photo: {
             type: String,
             observer: '_updateFirebase'
         },
         /**
-        * `route` is the route the curent user is at 
+        * `placeholder` is the tiny base 64 version of the photo for iron-image (optional)
         */
         placeholder: {
             type: String,
@@ -125,14 +125,19 @@ An element that saves the presence of the user at a route and gets all other use
         },
 
         _updateFirebase: function(){
-            if(this.$.presence.ref && this.route.path && this.placeholder && this.photo && this.name){
+            if(this.$.presence.ref && this.route){
                 this.$.presence.ref.onDisconnect().remove();
+
+                var placeholder = this.placeholder || null;
+                var photo = this.photo || null;
+                var name = this.name || null;
+
                 this.$.presence.ref.set({
                     route: this.route.path,
                     uid: this.uid,
-                    placeholder: this.placeholder,
-                    photo: this.photo,
-                    name: this.name,
+                    placeholder: placeholder,
+                    photo: photo,
+                    name: name,
                 });
             } 
         },
