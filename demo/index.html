@@ -19,25 +19,28 @@
     <div class="vertical-section-container centered">
     <h3>Basic presence-fire demo</h3>
     <demo-snippet>
-        <template>
+        <template is="dom-bind">
 
         <firebase-app
-            name="presence-fire"
+            name="presencefire"
             api-key="AIzaSyAhoCXxkY-ffNwA_7L7HIwBVpASYj1btNE"
             auth-domain="convoo-login-demo.firebaseapp.com"
             database-url="https://convoo-login-demo.firebaseio.com">
         </firebase-app>
 
-        <login-fire 
+        <social-login-fire 
             twitter 
-            app-name="presence-fire"
+            app-name="presencefire"
             user="{{user}}">
-        </login-fire>
+        </social-login-fire>
 
         <presence-fire
-            app-name="presence-fire"
+            app-name="presencefire"
+            private
             uid="[[user.uid]]" 
-            route="/test">
+            route="/test"
+            status={{status}}
+            present={{present}}>
         </presence-fire>
 
         </template>

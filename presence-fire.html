@@ -1,5 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<link rel="import" href="../polymerfire/firebase-document.html">
+<link rel="import" href="../polymerfire/firebase-query.html">
 
 <!--
 `presence-fire`
@@ -17,13 +18,13 @@ An element that saves the presence of the user at a route and gets all other use
     </style>
 
     <firebase-document 
-        app-name="presence-fire"
+        app-name="{{appName}}"
         id="presence"
-        path="/presence/[[uid]]">
+        path$="/presence/[[uid]]">
     </firebase-document>
 
     <firebase-query 
-        app-name="presence-fire"
+        app-name="{{appName}}"
         path="/presence"
         online = "{{status}}"
         equalTo =[[route]]
@@ -98,7 +99,7 @@ An element that saves the presence of the user at a route and gets all other use
         * `route` is the route the curent user is at 
         */
         route: {
-            type: Object,
+            type: String,
             observer: '_updateFirebase'
         },
         /**
@@ -111,7 +112,7 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `present` is an object containing all the other users who at the current route
+        * `present` is an object containing all the other users who are curently the supplied route
         */
         present: {
             type: Object,
@@ -119,23 +120,30 @@ An element that saves the presence of the user at a route and gets all other use
             notify: true,
             observer: '_updateFirebase'
         },
+        private: {
+            type: Boolean,
+            value: false,
+        },
     },
         ready: function(){
             this._updateFirebase();
         },
 
         _updateFirebase: function(){
-            
-            if(this.$.presence.ref && this.route){
-                console.log('ready')
-                this.$.presence.ref.onDisconnect().remove();
+            if(this.uid && this.route){
+                this.$$("#presence").ref.onDisconnect().remove();
 
                 var placeholder = this.placeholder || null;
                 var photo = this.photo || null;
                 var name = this.name || null;
+                if(this.private){
+                    route = null
+                } else {
+                    route = this.route
+                }
 
                 this.$.presence.ref.set({
-                    route: this.route.path,
+                    route: route,
                     uid: this.uid,
                     placeholder: placeholder,
                     photo: photo,
