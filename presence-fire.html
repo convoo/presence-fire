@@ -17,13 +17,13 @@ An element that saves the presence of the user at a route and gets all other use
     </style>
 
     <firebase-document 
-        app-name="convoo"
+        app-name="presence-fire"
         id="presence"
         path="/presence/[[uid]]">
     </firebase-document>
 
     <firebase-query 
-        app-name="convoo"
+        app-name="presence-fire"
         path="/presence"
         online = "{{status}}"
         equalTo =[[route]]
@@ -52,7 +52,7 @@ An element that saves the presence of the user at a route and gets all other use
     * ```
     *
     *
-    * @demo demo/presence-fire.html
+    * @demo demo/index.html
     */
     Polymer({
 
@@ -125,7 +125,9 @@ An element that saves the presence of the user at a route and gets all other use
         },
 
         _updateFirebase: function(){
+            
             if(this.$.presence.ref && this.route){
+                console.log('ready')
                 this.$.presence.ref.onDisconnect().remove();
 
                 var placeholder = this.placeholder || null;

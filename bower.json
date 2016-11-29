@@ -3,7 +3,9 @@
   "description": "An element that saves the presence of the user at a route and gets all other users at that route",
   "main": "presence-fire.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "polymerfire": "^0.10.3",
+    "login-fire": "^0.1.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",

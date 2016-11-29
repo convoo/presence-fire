@@ -1,13 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html>
 <head>
+    <title>presence-fire demo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-    <title>presence-fire demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+   
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+   
+    <link rel="import" href="../../login-fire/login-fire.html">
     <link rel="import" href="../presence-fire.html">
+    <link rel="import" href="../../polymerfire/firebase-app.html">
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
 </head>
@@ -17,15 +21,23 @@
     <demo-snippet>
         <template>
 
+        <firebase-app
+            name="presence-fire"
+            api-key="AIzaSyAhoCXxkY-ffNwA_7L7HIwBVpASYj1btNE"
+            auth-domain="convoo-login-demo.firebaseapp.com"
+            database-url="https://convoo-login-demo.firebaseio.com">
+        </firebase-app>
+
+        <login-fire 
+            twitter 
+            app-name="presence-fire"
+            user="{{user}}">
+        </login-fire>
+
         <presence-fire
-            app-name="convoo"
+            app-name="presence-fire"
             uid="[[user.uid]]" 
-            name="[[user.name]]" 
-            photo="[[user.photoURL]]"
-            placeholder="[[user.placeholder]]" 
-            route="[[route]]"
-            status={{status}}
-            present={{present}}>
+            route="/test">
         </presence-fire>
 
         </template>
