@@ -19,8 +19,17 @@ An element that saves the presence of the user at a route and gets all other use
     <firebase-document 
         app-name="convoo"
         id="presence"
-        path="/presence/{{uid}}">
+        path="/presence/[[uid]]">
     </firebase-document>
+
+    <firebase-query 
+        app-name="convoo"
+        path="/presence"
+        online = "{{status}}"
+        equalTo =[[route]]
+        data = "{{present}}"
+        >
+    </firebase-query>
 
 </template>
 
@@ -55,12 +64,14 @@ An element that saves the presence of the user at a route and gets all other use
         */
         appName: {
             type: String,
+            observer: '_updateFirebase'
         },
         /**
         * `uid` is the users id
         */
         uid: {
             type: String,
+            observer: '_updateFirebase'
         },
         /**
         * `name` is the users photo
@@ -96,18 +107,20 @@ An element that saves the presence of the user at a route and gets all other use
         status: {
             type: String,
             reflectToAttribute: true,
-            notify: true
+            notify: true,
+            observer: '_updateFirebase'
         },
         /**
-        * `present` is an object containing all the other users who at the curent route
+        * `present` is an object containing all the other users who at the current route
         */
         present: {
             type: Object,
             reflectToAttribute: true,
-            notify: true
+            notify: true,
+            observer: '_updateFirebase'
         },
     },
-        attached: function(){
+        ready: function(){
             this._updateFirebase();
         },
 
