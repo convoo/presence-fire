@@ -43,12 +43,7 @@ An element that saves the presence of the user at a route and gets all other use
     * <presence-fire
     *    app-name="yourAppName"
     *    uid="[[user.uid]]" 
-    *    name="[[user.name]]" 
-    *    image="[[user.imageURL]]" 
-    *    placeholder="[[user.placeholder]]" 
-    *    route="[[route]]"
-    *    status={{status}}
-    *    present={{present}}>
+    *    route="[[route]]">
     * </presence-fire>
     * ```
     *
@@ -120,6 +115,9 @@ An element that saves the presence of the user at a route and gets all other use
             notify: true,
             observer: '_updateFirebase'
         },
+        /**
+        * `private` will show this user is present but wil not sve the route
+        */
         private: {
             type: Boolean,
             value: false,
@@ -130,12 +128,14 @@ An element that saves the presence of the user at a route and gets all other use
         },
 
         _updateFirebase: function(){
+
             if(this.uid && this.route){
                 this.$$("#presence").ref.onDisconnect().remove();
 
                 var placeholder = this.placeholder || null;
                 var photo = this.photo || null;
                 var name = this.name || null;
+                
                 if(this.private){
                     route = null
                 } else {

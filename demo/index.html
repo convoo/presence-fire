@@ -8,9 +8,10 @@
    
     <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-   
+
     <link rel="import" href="../../login-fire/login-fire.html">
     <link rel="import" href="../presence-fire.html">
+    <link rel="import" href="../whois-here.html">
     <link rel="import" href="../../polymerfire/firebase-app.html">
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
@@ -36,12 +37,18 @@
 
         <presence-fire
             app-name="presencefire"
-            private
-            uid="[[user.uid]]" 
+            uid="[[user.uid]]"
+            photo="[[user.photoURL]]" 
+            name="[[user.displayName]]" 
             route="/test"
-            status={{status}}
-            present={{present}}>
+            status="{{status}}"
+            present="{{present}}">
         </presence-fire>
+
+        <whois-here
+            uid="[[user.uid]]"
+            present="[[present]]">
+        </whois-here>
 
         </template>
     </demo-snippet>
