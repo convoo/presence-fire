@@ -10,6 +10,7 @@
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
     <link rel="import" href="../../login-fire/login-fire.html">
+    <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
     <link rel="import" href="../presence-fire.html">
     <link rel="import" href="../../polymerfire/firebase-app.html">
     <style is="custom-style" include="demo-pages-shared-styles">
@@ -53,7 +54,8 @@
             name="[[user.displayName]]" 
             route="{{route}}"
             status="{{status}}"
-            present="{{present}}">
+            present="{{present}}"
+            private="{{private}}">
         </presence-fire>
 
 <hr/>
@@ -67,6 +69,9 @@
 <paper-button raised onclick="_changeRoute('a')">Route A</paper-button>
 <paper-button raised onclick="_changeRoute('b')">Route B</paper-button>
 <paper-button raised onclick="_changeRoute('c')">Route C</paper-button>
+
+<hr/>
+ <paper-toggle-button checked="{{private}}">Private Browsing</paper-toggle-button>
 
     <script>
         function _changeRoute(a){
