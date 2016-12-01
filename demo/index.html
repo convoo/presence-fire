@@ -13,11 +13,18 @@
     <link rel="import" href="../presence-fire.html">
     <link rel="import" href="../../polymerfire/firebase-app.html">
     <style is="custom-style" include="demo-pages-shared-styles">
-        .fade{
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-        }
+
+    .photo {
+        animation: fadein 1.5s;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+    }
+
+    @keyframes fadein {
+        from { opacity: 0;}
+        to   { opacity: 1; }
+    }
     </style>
 </head>
 <body>
@@ -52,7 +59,7 @@
 <hr/>
 
     <template is="dom-repeat" items="{{present}}">
-        <img src$="{{item.photo}}" alt="{{item.name}}" class="fade">
+        <img src$="{{item.photo}}" alt="{{item.name}}" class="photo">
     </template>
 
 <hr/>

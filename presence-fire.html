@@ -16,6 +16,7 @@ An element that saves the presence of the user at a route and gets all other use
     :host {
         display: block;
     }
+
     </style>
 
     <firebase-document 
@@ -28,7 +29,8 @@ An element that saves the presence of the user at a route and gets all other use
         app-name="{{appName}}"
         path="/presence"
         online = "{{status}}"
-        equalTo = [[route]]
+        order-by-child="route"
+        equal-to = "[[route]]"
         data = "{{present}}">
     </firebase-query>
 
@@ -121,15 +123,17 @@ An element that saves the presence of the user at a route and gets all other use
         private: {
             type: Boolean,
             value: false,
+            observer: '_updateFirebase'
         },
     },
         ready: function(){
             this._updateFirebase();
         },
+        attached: function(){
+            this.route = "a"
+        },
 
         _updateFirebase: function(){
-            console.log(this.route);
-            console.log(this.present);
             if(this.uid && this.route){
                 this.$$("#presence").ref.onDisconnect().remove();
 
