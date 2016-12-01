@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-Simple way to add authentication to your app using firebase.
+Simple way to add presence to your app using firebase.
 </p>
 
 <p align="center">
