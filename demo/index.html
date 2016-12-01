@@ -10,8 +10,8 @@
     <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
 
     <link rel="import" href="../../login-fire/login-fire.html">
+    <link rel="import" href="../../paper-toggle-button/paper-toggle-button.html">
     <link rel="import" href="../presence-fire.html">
-    <link rel="import" href="../whois-here.html">
     <link rel="import" href="../../polymerfire/firebase-app.html">
     <style is="custom-style" include="demo-pages-shared-styles">
     </style>
@@ -21,7 +21,6 @@
     <h3>Basic presence-fire demo</h3>
     <demo-snippet>
         <template is="dom-bind">
-
         <firebase-app
             name="presencefire"
             api-key="AIzaSyAhoCXxkY-ffNwA_7L7HIwBVpASYj1btNE"
@@ -32,23 +31,83 @@
         <social-login-fire 
             twitter 
             app-name="presencefire"
-            user="{{user}}">
+            user="{{basicUser}}">
         </social-login-fire>
+
 
         <presence-fire
             app-name="presencefire"
-            uid="[[user.uid]]"
-            photo="[[user.photoURL]]" 
-            name="[[user.displayName]]" 
-            route="/test"
-            status="{{status}}"
-            present="{{present}}">
+            uid="[[basicUser.uid]]"
+            photo="[[basicUser.photoURL]]" 
+            name="[[basicUser.displayName]]" 
+            route="test"
+            status="{{basicStatus}}"
+            present="{{basicPresent}}">
         </presence-fire>
 
-        <whois-here
-            uid="[[user.uid]]"
-            present="[[present]]">
-        </whois-here>
+        </template>
+    </demo-snippet>
+    </div>
+
+
+
+    <div class="vertical-section-container centered">
+    <h3>Complex presence-fire demo</h3>
+    <demo-snippet>
+        <template is="dom-bind">
+            <firebase-app
+                name="complexPresencefire"
+                api-key="AIzaSyAhoCXxkY-ffNwA_7L7HIwBVpASYj1btNE"
+                auth-domain="convoo-login-demo.firebaseapp.com"
+                database-url="https://convoo-login-demo.firebaseio.com">
+            </firebase-app>
+
+            <social-login-fire 
+                twitter 
+                app-name="complexPresencefire"
+                user="{{user}}">
+            </social-login-fire>
+
+            <div>
+                Currently at [[route]] <br>
+                <paper-input id="route" label="Route" value="{{route}}">/test</paper-input>
+                <paper-button class="goto" raised route="test" >Go to test</paper-button>
+                <paper-button class="goto" raised route="a">Go to A</paper-button>
+                <paper-button class="goto" raised route="b">Go to B</paper-button>
+            </div>
+
+            <div>
+                <paper-toggle-button checked="{{private}}">Private Browsing</paper-toggle-button>
+            </div>
+
+            <div>
+                <paper-toggle-button checked="{{status}}">Online</paper-toggle-button>
+            </div>
+
+            <presence-fire
+                app-name="presencefire"
+                uid="[[user.uid]]"
+                photo="[[user.photoURL]]" 
+                name="[[user.displayName]]" 
+                route="[[route]]"
+                status="{{status}}"
+                private="{{private}}"
+                present="{{present}}">
+            </presence-fire>
+
+            <template is="dom-repeat" items="[[present]]">
+                <img src$="{{item.photo}}" alt="{{item.name}}">
+            </template>
+
+            <script>
+                document.querySelector("#route").value = "test";
+                allGotoButtons = document.querySelectorAll(".goto");
+                allGotoButtons.forEach(function(button){
+                    button.addEventListener('tap', function(e){
+                        document.querySelector("#route").value = e.target.getAttribute('route');
+                    });
+                })
+            </script>
 
         </template>
     </demo-snippet>

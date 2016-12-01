@@ -20,16 +20,20 @@ An element that saves the presence of the user at a route and gets all other use
     <firebase-document 
         app-name="{{appName}}"
         id="presence"
-        path$="/presence/[[uid]]">
+        path$="/presence/[[route]]/[[uid]]">
+    </firebase-document>
+
+    <firebase-document 
+        app-name="{{appName}}"
+        id="online"
+        path$="/online/[[uid]]">
     </firebase-document>
 
     <firebase-query 
         app-name="{{appName}}"
-        path="/presence"
+        path$="/presence/[[route]]"
         online = "{{status}}"
-        equalTo =[[route]]
-        data = "{{present}}"
-        >
+        data = "{{present}}">
     </firebase-query>
 
 </template>
@@ -41,9 +45,13 @@ An element that saves the presence of the user at a route and gets all other use
     * Example:
     * ```
     * <presence-fire
-    *    app-name="yourAppName"
-    *    uid="[[user.uid]]" 
-    *    route="[[route]]">
+    *    app-name="firebaseAppName"
+    *    uid="[[user.uid]]"
+    *    photo="[[user.photoURL]]"
+    *    name="[[user.displayName]]"
+    *    route="[[route]]"
+    *    status="[[status]]"
+    *    present="[[present]]">
     * </presence-fire>
     * ```
     *
@@ -63,21 +71,21 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `uid` is the users id
+        * `uid` is the user's id
         */
         uid: {
             type: String,
             observer: '_updateFirebase'
         },
         /**
-        * `name` is the users name (optional)
+        * `name` is the user's name (optional)
         */
         name: {
             type: String,
             observer: '_updateFirebase'
         },
         /**
-        * `photo` is the users photo (optional)
+        * `photo` is the user's photo (optional)
         */
         photo: {
             type: String,
@@ -91,23 +99,24 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `route` is the route the curent user is at 
+        * `route` is the route the user is at 
         */
         route: {
             type: String,
-            observer: '_updateFirebase'
+            observer: '_routeChanged'
         },
         /**
-        * `status` displays the users status
+        * `status` determines whether the user is online
         */
         status: {
-            type: String,
+            type: Boolean,
             reflectToAttribute: true,
             notify: true,
+            value: true,
             observer: '_updateFirebase'
         },
         /**
-        * `present` is an object containing all the other users who are curently the supplied route
+        * `present` is an object containing all the other users who are curently at the supplied route
         */
         present: {
             type: Object,
@@ -116,40 +125,61 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `private` will show this user is present but wil not sve the route
+        * `private` will show this user is present but wil not save the route
         */
         private: {
             type: Boolean,
+            reflectToAttribute: true,
+            notify: true,
             value: false,
+            observer: '_updateFirebase'
         },
     },
         ready: function(){
             this._updateFirebase();
         },
 
-        _updateFirebase: function(){
+        _routeChanged: function(current,prev){
+            if(current && prev){
+                this.$$("#presence").ref.parent.parent.child(prev+"/"+this.uid).remove();
+                this._updateFirebase();
+            }
+        },
 
+        _updateFirebase: function(){
             if(this.uid && this.route){
                 this.$$("#presence").ref.onDisconnect().remove();
+                this.$$("#online").ref.onDisconnect().remove();
 
                 var placeholder = this.placeholder || null;
                 var photo = this.photo || null;
                 var name = this.name || null;
-                
-                if(this.private){
-                    route = null
-                } else {
-                    route = this.route
-                }
+                var route = this.private ? null : this.route;
 
-                this.$.presence.ref.set({
-                    route: route,
-                    uid: this.uid,
-                    placeholder: placeholder,
-                    photo: photo,
-                    name: name,
-                });
-            } 
+                if(this.status){
+                    this.$$("#online").ref.set({
+                        route: route,
+                        placeholder: placeholder,
+                        photo: photo,
+                        name: name,
+                    });
+
+                    if(!this.private){
+                        this.$$("#presence").ref.set({
+                            here: true,
+                            placeholder: placeholder,
+                            photo: photo,
+                            name: name,
+                        });
+                    } else {
+                        this.$$("#presence").ref.remove();
+                    }
+                } else {
+                    this.$$("#online").ref.remove();
+                    this.$$("#presence").ref.remove();
+                }
+            }
+
         },
 
     });
