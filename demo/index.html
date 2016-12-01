@@ -11,9 +11,13 @@
 
     <link rel="import" href="../../login-fire/login-fire.html">
     <link rel="import" href="../presence-fire.html">
-    <link rel="import" href="../whois-here.html">
     <link rel="import" href="../../polymerfire/firebase-app.html">
     <style is="custom-style" include="demo-pages-shared-styles">
+        .fade{
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
     </style>
 </head>
 <body>
@@ -40,18 +44,32 @@
             uid="[[user.uid]]"
             photo="[[user.photoURL]]" 
             name="[[user.displayName]]" 
-            route="/test"
+            route="{{route}}"
             status="{{status}}"
             present="{{present}}">
         </presence-fire>
 
-        <whois-here
-            uid="[[user.uid]]"
-            present="[[present]]">
-        </whois-here>
+<hr/>
+
+    <template is="dom-repeat" items="{{present}}">
+        <img src$="{{item.photo}}" alt="{{item.name}}" class="fade">
+    </template>
+
+<hr/>
+<paper-input id="route" label="Route" value="{{route}}" readonly>/test</paper-input>
+<paper-button raised onclick="_changeRoute('a')">Route A</paper-button>
+<paper-button raised onclick="_changeRoute('b')">Route B</paper-button>
+<paper-button raised onclick="_changeRoute('c')">Route C</paper-button>
+
+    <script>
+        function _changeRoute(a){
+            document.querySelector("#route").value = a;
+        }
+    </script>
 
         </template>
     </demo-snippet>
     </div>
+
 </body>
 </html>

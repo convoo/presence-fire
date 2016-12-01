@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase-document.html">
 <link rel="import" href="../polymerfire/firebase-query.html">
+<link rel="import" href="../polymerfire/polymerfire.html">
 
 <!--
 `presence-fire`
@@ -20,16 +21,15 @@ An element that saves the presence of the user at a route and gets all other use
     <firebase-document 
         app-name="{{appName}}"
         id="presence"
-        path$="/presence/[[uid]]">
+        path="/presence/[[uid]]">
     </firebase-document>
 
     <firebase-query 
         app-name="{{appName}}"
         path="/presence"
         online = "{{status}}"
-        equalTo =[[route]]
-        data = "{{present}}"
-        >
+        equalTo = [[route]]
+        data = "{{present}}">
     </firebase-query>
 
 </template>
@@ -128,7 +128,8 @@ An element that saves the presence of the user at a route and gets all other use
         },
 
         _updateFirebase: function(){
-
+            console.log(this.route);
+            console.log(this.present);
             if(this.uid && this.route){
                 this.$$("#presence").ref.onDisconnect().remove();
 
