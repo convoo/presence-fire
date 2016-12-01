@@ -45,12 +45,6 @@
             database-url="https://convoo-login-demo.firebaseio.com">
         </firebase-app>
 
-        <social-login-fire 
-            twitter 
-            app-name="presencefire"
-            user="{{user}}">
-        </social-login-fire>
-
         <presence-fire
             app-name="presencefire"
             uid="[[user.uid]]"
@@ -61,6 +55,14 @@
             present="{{present}}"
             private="{{private}}">
         </presence-fire>
+
+        <social-login-fire 
+            twitter 
+            app-name="presencefire"
+            user="{{user}}">
+        </social-login-fire>
+
+
 
 <hr/>
 
