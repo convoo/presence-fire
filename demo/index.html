@@ -15,6 +15,10 @@
     <link rel="import" href="../../polymerfire/firebase-app.html">
     <style is="custom-style" include="demo-pages-shared-styles">
 
+    .photoContainer{
+        min-height: 40px;
+    }
+
     .photo {
         animation: fadein 1.5s;
         border-radius: 50%;
@@ -60,9 +64,11 @@
 
 <hr/>
 
+<dom class="photoContainer">
     <template is="dom-repeat" items="{{present}}">
         <img src$="{{item.photo}}" alt="{{item.name}}" class="photo">
     </template>
+</dom>
 
 <hr/>
 <paper-input id="route" label="Route" value="{{route}}" readonly>/test</paper-input>

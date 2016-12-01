@@ -1,12 +1,10 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../polymerfire/firebase-document.html">
 <link rel="import" href="../polymerfire/firebase-query.html">
-<link rel="import" href="../polymerfire/polymerfire.html">
 
 <!--
 `presence-fire`
 An element that saves the presence of the user at a route and gets all other users at that route
-
 @demo demo/index.html 
 -->
 
@@ -43,9 +41,13 @@ An element that saves the presence of the user at a route and gets all other use
     * Example:
     * ```
     * <presence-fire
-    *    app-name="yourAppName"
-    *    uid="[[user.uid]]" 
-    *    route="[[route]]">
+    *    app-name="firebaseAppName"
+    *    uid="[[user.uid]]"
+    *    photo="[[user.photoURL]]"
+    *    name="[[user.displayName]]"
+    *    route="[[route]]"
+    *    status="[[status]]"
+    *    present="[[present]]">
     * </presence-fire>
     * ```
     *
@@ -65,21 +67,21 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `uid` is the users id
+        * `uid` is the user's id
         */
         uid: {
             type: String,
             observer: '_updateFirebase'
         },
         /**
-        * `name` is the users name (optional)
+        * `name` is the user's name (optional)
         */
         name: {
             type: String,
             observer: '_updateFirebase'
         },
         /**
-        * `photo` is the users photo (optional)
+        * `photo` is the user's photo (optional)
         */
         photo: {
             type: String,
@@ -93,14 +95,14 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `route` is the route the curent user is at 
+        * `route` is the route the user is at 
         */
         route: {
             type: String,
             observer: '_updateFirebase'
         },
         /**
-        * `status` displays the users status
+        * `status` determines whether the user is online
         */
         status: {
             type: String,
@@ -109,7 +111,7 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `present` is an object containing all the other users who are curently the supplied route
+        * `present` is an object containing all the other users who are curently at the supplied route
         */
         present: {
             type: Object,
@@ -118,7 +120,7 @@ An element that saves the presence of the user at a route and gets all other use
             observer: '_updateFirebase'
         },
         /**
-        * `private` will show this user is present but wil not sve the route
+        * `private` will show this user is present but wil not save the route
         */
         private: {
             type: Boolean,
