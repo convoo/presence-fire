@@ -122,7 +122,7 @@ An element that saves the presence of the user at a route and gets all other use
             type: Object,
             reflectToAttribute: true,
             notify: true,
-            observer: '_updateFirebase'
+            observer: '_presentChanged'
         },
         /**
         * `private` will show this user is present but wil not save the route
@@ -137,6 +137,10 @@ An element that saves the presence of the user at a route and gets all other use
     },
         ready: function(){
             this._updateFirebase();
+        },
+
+        _presentChanged: function(current,prev){
+            console.log(current);
         },
 
         _routeChanged: function(current,prev){

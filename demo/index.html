@@ -81,7 +81,7 @@
             </div>
 
             <div>
-                <paper-toggle-button checked="{{status}}">Online</paper-toggle-button>
+                <paper-toggle-button id="online-toggle" checked="{{status}}">Online</paper-toggle-button>
             </div>
 
             <presence-fire
@@ -101,6 +101,7 @@
 
             <script>
                 document.querySelector("#route").value = "test";
+                document.querySelector("#online-toggle").checked = true;
                 allGotoButtons = document.querySelectorAll(".goto");
                 allGotoButtons.forEach(function(button){
                     button.addEventListener('tap', function(e){
