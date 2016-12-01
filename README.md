@@ -1,7 +1,7 @@
 # Presence-Fire
 
 <p align="center">
-  <img alt="presence-fire" src="PresenceFire400.png" width="200">
+  <img alt="presence-fire" src="PresenceFire400.png" width="300">
 </p>
 
 <p align="center">
