@@ -45,59 +45,75 @@ An element that saves the presence of the user at a route and gets all other use
 ```
 -->
 ```html
+<!--What you need:-->
 <firebase-app
-    name="complexPresencefire"
+    name="presencefire"
     api-key="AIzaSyAhoCXxkY-ffNwA_7L7HIwBVpASYj1btNE"
     auth-domain="convoo-login-demo.firebaseapp.com"
     database-url="https://convoo-login-demo.firebaseio.com">
 </firebase-app>
 
-<social-login-fire
-    twitter
-    app-name="complexPresencefire"
+<presence-fire
+    app-name="presencefire"
+    uid="[[user.uid]]"
+    photo="[[user.photoURL]]" 
+    name="[[user.displayName]]" 
+    route="{{route}}"
+    status="{{status}}"
+    present="{{present}}"
+    private="{{private}}">
+</presence-fire>
+
+<!--Just for the demo:-->
+<social-login-fire 
+    twitter 
+    app-name="presencefire"
     user="{{user}}">
 </social-login-fire>
 
 <div>
-    Currently at [[route]] <br>
-    <paper-input id="route" label="Route" value="{{route}}">/test</paper-input>
-    <paper-button class="goto" raised route="test" >Go to test</paper-button>
-    <paper-button class="goto" raised route="a">Go to A</paper-button>
-    <paper-button class="goto" raised route="b">Go to B</paper-button>
+    Currently here:<br><br>
+    <div class="photoContainer">
+        <template is="dom-repeat" items="{{present}}">
+            <img src$="{{item.photo}}" alt="{{item.name}}" class="photo">
+        </template>
+    </div>
 </div>
 
-<div>
-    <paper-toggle-button checked="{{private}}">Private Browsing</paper-toggle-button>
-</div>
+<paper-input id="route" label="Route" value="{{route}}" readonly></paper-input>
 
-<div>
-    <paper-toggle-button checked="{{status}}">Online</paper-toggle-button>
-</div>
+<br>
 
-<presence-fire
-    app-name="presencefire"
-    uid="[[user.uid]]"
-    photo="[[user.photoURL]]"
-    name="[[user.displayName]]"
-    route="[[route]]"
-    status="{{status}}"
-    private="{{private}}"
-    present="{{present}}">
-</presence-fire>
+<paper-button raised onclick="_changeRoute('a')">Route A</paper-button>
+<paper-button raised onclick="_changeRoute('b')">Route B</paper-button>
+<paper-button raised onclick="_changeRoute('c')">Route C</paper-button>
 
-<template is="dom-repeat" items="[[present]]">
-    <img src$="{{item.photo}}" alt="{{item.name}}">
-</template>
+<br><br>
+
+<paper-toggle-button checked="{{private}}">Private Browsing</paper-toggle-button>
 
 <script>
-    document.querySelector("#route").value = "test";
-    allGotoButtons = document.querySelectorAll(".goto");
-    allGotoButtons.forEach(function(button){
-        button.addEventListener('tap', function(e){
-            document.querySelector("#route").value = e.target.getAttribute('route');
-        });
-    })
+function _changeRoute(a){
+    document.querySelector("#route").value = a;
+}
 </script>
+<style>
+.photoContainer{
+    min-height: 45px;
+}
+
+.photo {
+    animation: fadein 1.5s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes fadein {
+    from { opacity: 0;}
+    to   { opacity: 1; }
+}
+</style>
 ```
 
 ## Contributing
