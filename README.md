@@ -32,7 +32,7 @@ An element that saves the presence of the user at a route and gets all other use
 <!--
 ```
 <custom-element-demo>
-  <template>
+  <template is="dom-bind">
     <link rel="import" href="../polymerfire/firebase-app.html">
     <link rel="import" href="../login-fire/social-login-fire.html">
     <link rel="import" href="../paper-button/paper-button.html">
