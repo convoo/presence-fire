@@ -45,7 +45,6 @@ An element that saves the presence of the user at a route and gets all other use
 ```
 -->
 ```html
-<template is="dom-bind">
 <!--What you need:-->
 <firebase-app
     name="presencefire"
@@ -115,7 +114,6 @@ function _changeRoute(a){
     to   { opacity: 1; }
 }
 </style>
-</template>
 ```
 
 ## Contributing
