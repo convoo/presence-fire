@@ -43,7 +43,7 @@ An element that saves the presence of the user at a route and gets all other use
             <template is="dom-bind">
                 <next-code-block></next-code-block>
             </template>
-        </dom-bind>
+        </body>
         <script>
 function _changeRoute(a){
     document.querySelector("#route").value = a;
