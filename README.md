@@ -32,15 +32,17 @@ An element that saves the presence of the user at a route and gets all other use
 <!--
 ```
 <custom-element-demo>
-  <dom-bind>
-    <link rel="import" href="../polymerfire/firebase-app.html">
-    <link rel="import" href="../login-fire/social-login-fire.html">
-    <link rel="import" href="../paper-button/paper-button.html">
-    <link rel="import" href="../paper-input/paper-input.html">
-    <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
-    <link rel="import" href="presence-fire.html">
-    <next-code-block></next-code-block>
-  </dom-bind>
+  <body>
+    <template is="dom-bind">
+        <link rel="import" href="../polymerfire/firebase-app.html">
+        <link rel="import" href="../login-fire/social-login-fire.html">
+        <link rel="import" href="../paper-button/paper-button.html">
+        <link rel="import" href="../paper-input/paper-input.html">
+        <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
+        <link rel="import" href="presence-fire.html">
+        <next-code-block></next-code-block>
+    </template>
+  </body>
 </custom-element-demo>
 ```
 -->
