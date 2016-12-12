@@ -43,7 +43,6 @@ An element that saves the presence of the user at a route and gets all other use
             <template is="dom-bind">
                 <next-code-block></next-code-block>
             </template>
-        </body>
         <script>
 function _changeRoute(a){
     document.querySelector("#route").value = a;
@@ -66,6 +65,7 @@ function _changeRoute(a){
     to   { opacity: 1; }
 }
         </style>
+        </body>
     </template>
 </custom-element-demo>
 ```
