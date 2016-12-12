@@ -39,6 +39,7 @@ An element that saves the presence of the user at a route and gets all other use
         <link rel="import" href="../paper-input/paper-input.html">
         <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
         <link rel="import" href="presence-fire.html">
+        </head>
         <body>
             <template is="dom-bind">
                 <next-code-block></next-code-block>
