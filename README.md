@@ -39,9 +39,33 @@ An element that saves the presence of the user at a route and gets all other use
         <link rel="import" href="../paper-input/paper-input.html">
         <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
         <link rel="import" href="presence-fire.html">
-        <dom-bind>
-            <next-code-block></next-code-block>
+        <body>
+            <template is="dom-bind">
+                <next-code-block></next-code-block>
+            </template>
         </dom-bind>
+        <script>
+function _changeRoute(a){
+    document.querySelector("#route").value = a;
+}
+        </script>
+        <style>
+.photoContainer{
+    min-height: 45px;
+}
+
+.photo {
+    animation: fadein 1.5s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes fadein {
+    from { opacity: 0;}
+    to   { opacity: 1; }
+}
+        </style>
     </template>
 </custom-element-demo>
 ```
@@ -93,29 +117,6 @@ An element that saves the presence of the user at a route and gets all other use
 <br><br>
 
 <paper-toggle-button checked="{{private}}">Private Browsing</paper-toggle-button>
-
-<script>
-function _changeRoute(a){
-    document.querySelector("#route").value = a;
-}
-</script>
-<style>
-.photoContainer{
-    min-height: 45px;
-}
-
-.photo {
-    animation: fadein 1.5s;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-
-@keyframes fadein {
-    from { opacity: 0;}
-    to   { opacity: 1; }
-}
-</style>
 ```
 
 ## Contributing
