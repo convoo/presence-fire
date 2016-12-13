@@ -32,15 +32,41 @@ An element that saves the presence of the user at a route and gets all other use
 <!--
 ```
 <custom-element-demo>
-  <template is="dom-bind">
-    <link rel="import" href="../polymerfire/firebase-app.html">
-    <link rel="import" href="../login-fire/social-login-fire.html">
-    <link rel="import" href="../paper-button/paper-button.html">
-    <link rel="import" href="../paper-input/paper-input.html">
-    <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
-    <link rel="import" href="presence-fire.html">
-    <next-code-block></next-code-block>
-  </template>
+    <template>
+        <link rel="import" href="../polymerfire/firebase-app.html">
+        <link rel="import" href="../login-fire/social-login-fire.html">
+        <link rel="import" href="../paper-button/paper-button.html">
+        <link rel="import" href="../paper-input/paper-input.html">
+        <link rel="import" href="../paper-toggle-button/paper-toggle-button.html">
+        <link rel="import" href="presence-fire.html">
+        <div>
+            <template is="dom-bind">
+                <next-code-block></next-code-block>
+            </template>
+        <script>
+function _changeRoute(a){
+    document.querySelector("#route").value = a;
+}
+        </script>
+        <style>
+.photoContainer{
+    min-height: 45px;
+}
+
+.photo {
+    animation: fadein 1.5s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes fadein {
+    from { opacity: 0;}
+    to   { opacity: 1; }
+}
+        </style>
+        </div>
+    </template>
 </custom-element-demo>
 ```
 -->
@@ -91,29 +117,6 @@ An element that saves the presence of the user at a route and gets all other use
 <br><br>
 
 <paper-toggle-button checked="{{private}}">Private Browsing</paper-toggle-button>
-
-<script>
-function _changeRoute(a){
-    document.querySelector("#route").value = a;
-}
-</script>
-<style>
-.photoContainer{
-    min-height: 45px;
-}
-
-.photo {
-    animation: fadein 1.5s;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-
-@keyframes fadein {
-    from { opacity: 0;}
-    to   { opacity: 1; }
-}
-</style>
 ```
 
 ## Contributing
